@@ -1,0 +1,7 @@
+{
+  "name": "dailysnap",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
