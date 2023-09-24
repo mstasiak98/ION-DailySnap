@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import {PhotoListComponentModule} from "./ui/photo-list/photo-list.component";
+import {SlideshowModule} from "../slideshow/slideshow.module";
 
 
 @NgModule({
@@ -14,8 +15,9 @@ import {PhotoListComponentModule} from "./ui/photo-list/photo-list.component";
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    PhotoListComponentModule
+    PhotoListComponentModule,
+    SlideshowModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
 })
 export class HomePageModule {}

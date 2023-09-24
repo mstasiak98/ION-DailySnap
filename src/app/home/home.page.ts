@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import {PhotoService} from "./data-access/photo.service";
-import {map} from "rxjs";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {PhotoService} from "./data-access/photo/photo.service";
+import {BehaviorSubject, combineLatest, map} from "rxjs";
 import {DomSanitizer} from "@angular/platform-browser";
+import {IonRouterOutlet} from "@ionic/angular";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage {
 
@@ -21,6 +23,22 @@ export class HomePage {
     )
   );
 
-  constructor(public photoService: PhotoService, private sanitizer: DomSanitizer) {}
+  modalIsOpen$ = new BehaviorSubject(false);
+
+  vm$ = combineLatest([
+    this.photos$,
+    this.photoService.hasTakenPhotoToday$,
+    this.modalIsOpen$
+  ]).pipe(
+    map(([photos, hasTakenPhotoToday, modalIsOpen]) => ({
+      photos,
+      hasTakenPhotoToday,
+      modalIsOpen
+    }))
+  );
+
+  constructor(public photoService: PhotoService, private sanitizer: DomSanitizer, public routerOutlet: IonRouterOutlet) {}
+
+
 
 }
